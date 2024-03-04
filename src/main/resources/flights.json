@@ -2,7 +2,7 @@
   {
     "id": 1,
     "airline": "Airways Inc.",
-    "origin": "Boogta",
+    "origin": "Bogota",
     "destination": "Cali",
     "departureDate": "2024-01-01T08:00:00",
     "arrivalDate": "2024-01-01T10:00:00",

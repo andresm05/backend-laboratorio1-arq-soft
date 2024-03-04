@@ -15,13 +15,36 @@ public class FlightController {
     @Autowired
     private FlightService flightService;
 
-    @GetMapping("/search")
-    public List<List<Flight>> searchFlights(
+    @GetMapping("/search/date")
+    public List<Flight> searchFligthsByDate(
             @RequestParam(name ="startDate") String startDate,
             @RequestParam(name="endDate") String endDate){
         LocalDate parsedStarDate = LocalDate.parse(startDate);
         LocalDate parsedEndDate = LocalDate.parse(endDate);
-        return flightService.searchFligths(parsedStarDate,parsedEndDate);
+        return flightService.searchFlightsByDate(parsedStarDate,parsedEndDate);
+    }
+
+    @GetMapping("/search/route")
+    public List<Flight> searchFlightsByRoute(
+            @RequestParam(name="origin") String origin,
+            @RequestParam(name="destination") String destination
+    ){
+        return flightService.searchFlightsByRoute(origin, destination);
+    }
+
+    @GetMapping("/search/airline")
+    public List<Flight> searchFlightsByAirline(
+            @RequestParam(name="airline") String airline
+    ){
+        return flightService.searchFlightByAirline(airline);
+    }
+
+    @GetMapping("/search/price")
+    public List<Flight> searchFlightsByPriceRange(
+            @RequestParam(name="minimum", defaultValue = "0") Double minimum,
+            @RequestParam(name="limit") Double limit
+    ){
+        return flightService.searchFlightByPriceRange(minimum, limit);
     }
 
 }
