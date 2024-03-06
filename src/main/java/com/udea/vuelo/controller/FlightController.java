@@ -15,6 +15,7 @@ public class FlightController {
     @Autowired
     private FlightService flightService;
 
+    //this is the path to search flights between a specific date
     @GetMapping("/search/date")
     public List<Flight> searchFligthsByDate(
             @RequestParam(name ="startDate") String startDate,
@@ -24,6 +25,7 @@ public class FlightController {
         return flightService.searchFlightsByDate(parsedStarDate,parsedEndDate);
     }
 
+    //This is the path to search flights that fit with a specific origin and destination
     @GetMapping("/search/route")
     public List<Flight> searchFlightsByRoute(
             @RequestParam(name="origin") String origin,
@@ -32,6 +34,7 @@ public class FlightController {
         return flightService.searchFlightsByRoute(origin, destination);
     }
 
+    //This is the path to search flights that fit with a specific airline
     @GetMapping("/search/airline")
     public List<Flight> searchFlightsByAirline(
             @RequestParam(name="airline") String airline
@@ -39,6 +42,8 @@ public class FlightController {
         return flightService.searchFlightByAirline(airline);
     }
 
+    //This is the path to search flights that are between a price range
+    //minimum price is 0 by default
     @GetMapping("/search/price")
     public List<Flight> searchFlightsByPriceRange(
             @RequestParam(name="minimum", defaultValue = "0") Double minimum,

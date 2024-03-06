@@ -9,6 +9,7 @@ import org.springframework.web.filter.CorsFilter;
 @Configuration
 public class AppConfig {
 
+    //this method helps configure cors to allow dome some origins request
     @Bean
     public CorsFilter corsFilter(){
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

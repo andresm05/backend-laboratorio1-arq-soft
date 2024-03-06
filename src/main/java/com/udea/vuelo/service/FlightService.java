@@ -15,8 +15,9 @@ import java.util.stream.Collectors;
 
 @Service
 public class FlightService {
-    //Método de la lógica de búsqueda de vuelos por fecha
 
+    //This method is used to read the file that contains the data and filters the result
+    //according to a specific predicate
     private List<Flight> searchFlights(Predicate<Flight> filter){
         try {
             ObjectMapper objectMapper = new ObjectMapper();
@@ -36,16 +37,18 @@ public class FlightService {
             throw new RuntimeException("Error leyendo el archivo JSON ", e);
         }
     }
+
+    //This method is used for searching flights that are in a particular date range
     public List<Flight> searchFlightsByDate(LocalDate startDate, LocalDate endDate) {
         return searchFlights(flight -> FlightFilters.isDateInRange(flight.getDepartureDate(), startDate, endDate));
     }
 
-    //Método de la lógica de búsqueda de vuelos por origen y destino
+    //This method is used for searching flights that fulfill with a specific origin and destination
     public List<Flight> searchFlightsByRoute(String origin, String destination) {
         return searchFlights(flight -> FlightFilters.isOriginAndDestination(flight, origin, destination));
     }
 
-    //Método de la lógica de búsqueda de vuelos por aerolínea
+    //This method is used for searching flights that fulfill with a particular airline
     public List<Flight> searchFlightByAirline(String airline){
         return searchFlights(flight -> FlightFilters.isAirline(flight.getAirline(), airline));
     }
