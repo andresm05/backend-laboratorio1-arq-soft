@@ -59,7 +59,7 @@ public class FlightService {
         if(FlightValidation.isOriginValid(origin)){
             return searchFlights(flight -> FlightFilters.isOrigin(flight.getOrigin(), origin));
         }
-
+        /*Throw an exception when neither destination nor origin come in the request*/
         throw new RouteNotValidException("Debe proporcionar al menos un valor para origen o destino");
     }
 
