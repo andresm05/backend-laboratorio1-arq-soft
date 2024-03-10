@@ -1,8 +1,11 @@
 package com.udea.vuelo.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.udea.vuelo.exceptions.RestException;
+import com.udea.vuelo.exceptions.RouteNotValidException;
 import com.udea.vuelo.model.Flight;
 import com.udea.vuelo.utils.FlightFilters;
+import com.udea.vuelo.utils.FlightValidation;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -44,8 +47,20 @@ public class FlightService {
     }
 
     //This method is used for searching flights that fulfill with a specific origin and destination
-    public List<Flight> searchFlightsByRoute(String origin, String destination) {
-        return searchFlights(flight -> FlightFilters.isOriginAndDestination(flight, origin, destination));
+    public List<Flight> searchFlightsByRoute(String origin, String destination) throws RestException {
+        if(FlightValidation.isOriginAndDestinationValid(origin, destination)){
+            return searchFlights(flight -> FlightFilters.isOriginAndDestination(flight, origin, destination));
+
+        }
+        if(FlightValidation.isDestinationValid(destination)){
+            return searchFlights(flight -> FlightFilters.isDestination(flight.getDestination(), destination));
+        }
+
+        if(FlightValidation.isOriginValid(origin)){
+            return searchFlights(flight -> FlightFilters.isOrigin(flight.getOrigin(), origin));
+        }
+
+        throw new RouteNotValidException("Debe proporcionar al menos un valor para origen o destino");
     }
 
     //This method is used for searching flights that fulfill with a particular airline

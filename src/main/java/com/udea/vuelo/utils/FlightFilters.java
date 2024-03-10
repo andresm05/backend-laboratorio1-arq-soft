@@ -18,6 +18,18 @@ public class FlightFilters {
                 flight.getOrigin().equalsIgnoreCase(origin);
     }
 
+    //This method is used to check if a flight fits for a specific destination
+    public static boolean isDestination(String destinationToCheck, String destination){
+
+        return destinationToCheck.equalsIgnoreCase(destination);
+    }
+
+    //This method is used to check if a flight fits for a specific origin
+    public static boolean isOrigin(String originToCheck, String origin){
+
+        return originToCheck.equalsIgnoreCase(origin);
+    }
+
     //This method check if a flight fits for a specific airline
     public static boolean isAirline(String airlineToCheck, String airline){
         return  airlineToCheck.equalsIgnoreCase(airline);

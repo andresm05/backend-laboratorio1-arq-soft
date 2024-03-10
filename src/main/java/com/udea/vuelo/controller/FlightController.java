@@ -2,6 +2,8 @@ package com.udea.vuelo.controller;
 
 import java.time.LocalDate;
 import java.util.List;
+
+import com.udea.vuelo.exceptions.RestException;
 import com.udea.vuelo.model.Flight;
 import com.udea.vuelo.service.FlightService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +30,9 @@ public class FlightController {
     //This is the path to search flights that fit with a specific origin and destination
     @GetMapping("/search/route")
     public List<Flight> searchFlightsByRoute(
-            @RequestParam(name="origin") String origin,
-            @RequestParam(name="destination") String destination
-    ){
+            @RequestParam(name="origin", defaultValue = "") String origin,
+            @RequestParam(name="destination", defaultValue = "") String destination
+    ) throws RestException {
         return flightService.searchFlightsByRoute(origin, destination);
     }
 
